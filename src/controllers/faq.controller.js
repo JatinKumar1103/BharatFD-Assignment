@@ -43,7 +43,22 @@ const updateFaq = asyncHandler(async(req,res)=>{
     ))
 })
 
+const deleteFaq = asyncHandler(async(req,res)=>{
+    const {id} = req.params;
+    const faq = await Faq.findById(id);
+    if(!faq){
+        throw new ApiError(404, "FAQ not found");
+    }
+    await faq.deleteOne();
+    res.status(200)
+    .json(new ApiResponse(
+        200,
+        "FAQ deleted successfully"
+    ))
+})
+
 export{
     createFaq,
-    updateFaq
+    updateFaq,
+    deleteFaq
 }
