@@ -57,8 +57,34 @@ const deleteFaq = asyncHandler(async(req,res)=>{
     ))
 })
 
+const getFaq = asyncHandler(async(req,res)=>{
+    const {lang} = req.query;
+    const faqs = await Faq.find();
+
+    if(lang){
+        const translatedFaqs = faqs.map(faq=>({
+            question: faq.translations.get(lang)?.question || faq.question,
+            answer: faq.translations.get(lang)?.answer || faq.answer
+            
+        }));
+        return res.status(200)
+        .json(new ApiResponse(
+            200,
+            translatedFaqs,
+            "Translated FAQs fetched successfully"
+        ))
+    }
+    res.status(200)
+    .json(new ApiResponse(
+        200,
+        faqs,
+        "FAQs fetched successfully"
+    ))
+})
+
 export{
     createFaq,
     updateFaq,
-    deleteFaq
+    deleteFaq,
+    getFaq
 }
