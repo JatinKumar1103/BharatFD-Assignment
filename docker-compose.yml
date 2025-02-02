@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=development
+      - PORT=8000
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - redis
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
