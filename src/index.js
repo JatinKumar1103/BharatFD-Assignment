@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
-import connectDB from "./db/index.js"; // MongoDB connection
-import { app } from "./app.js"; // Import the app setup
-import "./config/redisClient.js"; // Ensure Redis connection on startup
+import connectDB from "./db/index.js"; 
+import { app } from "./app.js";
+import "./config/redisClient.js"; 
 
 dotenv.config({
   path: "./.env",
